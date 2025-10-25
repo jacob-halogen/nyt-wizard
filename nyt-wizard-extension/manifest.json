@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "NYT Wizard",
+    "version": "1.0",
+    "description": "A solver for all (most) games on NYT",
+    "icons": {
+        "48": "icons/icon-48.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://www.nytimes.com/puzzles/*",
+                "*://www.nytimes.com/games/*"
+            ],
+            "js": [
+                "nyt-wizard-extension.js",
+                "wordle-handler.js",
+                "spelling-bee-handler.js",
+                "pips-handler.js"
+            ]
+        }
+    ]
+}
