@@ -1,6 +1,6 @@
 # NYT Wizard
 
-The NYT Wizard ~~can~~will solve any of the New York Times games (except the ones that need money)
+The NYT Wizard ~~can~~ will solve any of the New York Times games (except the ones that need money)
 
 - [ ] Spelling Bee
 - [ ] Wordle
@@ -10,5 +10,3 @@ The NYT Wizard ~~can~~will solve any of the New York Times games (except the one
 - [ ] Letter Boxed
 - [ ] Tiles
 - [ ] Sudoku
-
-
