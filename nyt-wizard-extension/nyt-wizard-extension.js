@@ -7,15 +7,15 @@
 
     async function startSolver()
     {
+        const apiURL = "http://localhost:3000/";
         let data;
         const currURLText = document.URL;
         const currURLObj = new URL(currURLText);
         const currURL = currURLObj.origin + currURLObj.pathname;
-        if (currURL.includes("wordle")) 
+        if (currURL.includes("wordle/")) 
         {
             data = W_getData();
-            console.log(JSON.stringify({data}));
-            const solved = await fetch("http://localhost:3000/wordle/", {
+            const solved = await fetch(apiURL + "wordle/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({data})
@@ -25,6 +25,12 @@
         else if (currURL.includes("spelling-bee")) 
         {
             data = SB_getData();
+            const solved = await fetch(apiURL + "spelling-bee/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({data})
+            });
+            SB_inputData((await solved.text()).replaceAll(" ", ""));
         }
         else if (currURL.includes("pips")) 
         {
@@ -33,8 +39,14 @@
         else if (currURL.includes("sudoku"))
         {
             data = S_getData();
-            const temp_output = [["5","6","3","3","5","7","2","8","4"],["8","5","6","1","2","3","7","6","5"],["7","2","6","4","5","6","2","3","3"],["6","3","4","5","6","7","8","9","8"],["7","6","5","5","2","2","6","1","2"],["2","8","4","9","1","2","3","1","3"],["9","8","8","7","4","5","4","3","3"],["1","9","2","8","7","6","9","3","4"],["1","9","2","3","1","2","3","4","3"]];
-            S_inputData(data, temp_output);
+            //console.log(JSON.stringify(data));
+            const solved = await fetch(apiURL + "sudoku/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({data})
+            });
+            //const temp_output = [["5","6","3","3","5","7","2","8","4"],["8","5","6","1","2","3","7","6","5"],["7","2","6","4","5","6","2","3","3"],["6","3","4","5","6","7","8","9","8"],["7","6","5","5","2","2","6","1","2"],["2","8","4","9","1","2","3","1","3"],["9","8","8","7","4","5","4","3","3"],["1","9","2","8","7","6","9","3","4"],["1","9","2","3","1","2","3","4","3"]];
+            S_inputData(data, (await solved.text()));
         }
 
         console.log(data);
@@ -76,7 +88,7 @@
 
         for(letter of guess)
         {
-            console.log(letter);
+            //console.log(letter);
             keys[letter].click();
         }
 
@@ -98,20 +110,24 @@
 
         const data = {"letters": letters, "center": centerLetter};
         const jsonData = JSON.stringify(data);
-        
-        SB_inputData(["flat"]);
+
         return jsonData;
     }
 
-    function SB_inputData(words)
+    async function SB_inputData(words)
     {
+        words.replaceAll("[", "");
+        words.replaceAll("'", "");
+        words = words.split(",");
         for (let word of words)
         {
             for (let letter of word)
             {
                 injectFunction(clickHex, letter);
+                await sleep(10);
             }
             injectFunction(clickBeeSubmit);
+            await sleep(1000);
         }
     }
 
@@ -230,10 +246,14 @@
 
     async function S_inputData(inputGrid, outputGrid)
     {
+        //outputGrid = Array.from(outputGrid);
+        outputGrid = eval(outputGrid);
         for (let row in outputGrid)
         {
+            //console.log("row - " + row);
             for (let column in outputGrid[row])
             {
+                //console.log("col - " + column);
                 if (inputGrid[row][column] === "")
                 {
                     injectFunction(clickSudokuCell, parseInt(row*9)+parseInt(column));
@@ -283,12 +303,13 @@
 
     function clickSudokuNumber(number)
     {
+        //console.log(number);
         const el = document.getElementsByClassName("su-keyboard__svg");
 
         let correctButton;
         for (let e of el)
         {
-            if (e.getAttribute("data-candidate") === number){
+            if (e.getAttribute("data-candidate") == number){
                 correctButton = e.parentNode.parentNode;
                 break;
             }

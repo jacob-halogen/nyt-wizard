@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "NYT Wizard",
     "version": "1.0",
-    "description": "A solver for all (most) games on NYT",
+    "description": "A solver for (almost) all games on NYT",
     "icons": {
         "48": "icons/icon-48.png"
     },

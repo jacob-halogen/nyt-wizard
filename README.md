@@ -9,4 +9,4 @@ The NYT Wizard shall solve any of the New York Times games (except the ones that
 - [ ] Connections (medium)
 - [ ] Letter Boxed (who?)
 - [ ] Tiles (medium)
-- [ ] Sudoku (easy)
+- [x] Sudoku (easy)
