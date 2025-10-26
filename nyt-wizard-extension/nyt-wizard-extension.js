@@ -36,6 +36,10 @@
         {
             data = await P_getData();
         }
+        else if (currURL.includes("tiles"))
+        {
+            data = await T_inputData();
+        }
         else if (currURL.includes("sudoku"))
         {
             data = S_getData();
@@ -65,6 +69,7 @@
     async function T_inputData()
     {
         const tiles = document.getElementsByClassName("tls-tile");
+        console.log(tiles)
         for (let tile of tiles) {
             for (let other_tile of tiles) {
                 T_clickTile(tile);
@@ -73,6 +78,7 @@
             }
         }
     }
+
     function T_clickTile(tile)
     {
         const rect = tile.getBoundingClientRect();
