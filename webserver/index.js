@@ -7,7 +7,7 @@ app.use(bodyParser.json())
 const port = 3000
 const spawn = require('child_process').spawn
 
-app.post('/wordle-solver', (req, res) => {
+app.post('/wordle', (req, res) => {
     const state = req.body.data;
     console.log(state);
     const python = spawn('python', ['../wordle.py', state])
@@ -22,6 +22,18 @@ app.post('/wordle-solver', (req, res) => {
         console.log("OUT: " + output)
         res.send(output.toString().trim())
     })
+})
+
+app.post('/spelling-bee', (req, res) => {
+    app.code(501).send("Not Implemented!");
+})
+
+app.post('/pips', (req, res) => {
+    app.code(501).send("Not Implemented!");
+})
+
+app.post('/sudoku', (req, res) => {
+    app.code(501).send("Not Implemented!");
 })
 
 app.listen(port, () => {

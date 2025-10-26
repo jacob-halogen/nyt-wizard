@@ -15,7 +15,7 @@
         {
             data = W_getData();
             console.log(JSON.stringify({data}));
-            const solved = await fetch("http://localhost:3000/wordle-solver/", {
+            const solved = await fetch("http://localhost:3000/wordle/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({data})
