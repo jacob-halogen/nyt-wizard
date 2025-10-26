@@ -15,7 +15,7 @@ def filter_words(data):
 	pattern = re.compile(regex)
 	filtered = list(filter(lambda s: pattern.search(s), words))
 	filtered = list(filter(lambda i: len(i) >= 4, filtered))
-	ordered = sorted(filtered, key=len, reverse=True)
+	ordered = sorted(filtered, key=len, reverse=False)
 	return ordered
 
 test_input = ast.literal_eval(sys.argv[1])

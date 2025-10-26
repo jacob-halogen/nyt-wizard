@@ -69,7 +69,7 @@
     async function T_inputData()
     {
         const tiles = document.getElementsByClassName("tls-tile");
-        for (let tile of tiles.shuffle()) {
+        for (let tile of tiles) {
             for (let other_tile of tiles) {
                 T_clickTile(tile);
                 T_clickTile(other_tile);
@@ -158,7 +158,7 @@
             for (let letter of word)
             {
                 injectFunction(clickHex, letter);
-                await sleep(10);
+                await sleep(100);
             }
             injectFunction(clickBeeSubmit);
             await sleep(1000);
@@ -292,7 +292,7 @@
                 {
                     injectFunction(clickSudokuCell, parseInt(row*9)+parseInt(column));
                     injectFunction(clickSudokuNumber, outputGrid[row][column]);
-                    await sleep(1);
+                    await sleep(100);
                 }
             }
         }
