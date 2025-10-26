@@ -26,3 +26,7 @@ This one is very hard. Our solution is incredibly slow so only really works on e
 ## Strands
 
 We're kinda cheating by using hints.
+
+## Sudoku
+
+This isn't much harder than Spelling Bee frankly. It's just a cheeky bit of recursion to please the Efficiency Gods. Written in Python for simplicity and convenience, maybe I should've done it in ANSI C for a first year throwback.  
