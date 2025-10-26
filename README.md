@@ -5,17 +5,10 @@ The NYT Wizard shall solve any of the New York Times games (except the ones that
 - [x] Spelling Bee (easy)
 - [x] Wordle (medium)
 - [x] Pips (hard)
-<<<<<<< HEAD
-- [ ] Strands (medium)
-- [ ] Connections (hard)
-- [ ] Letter Boxed (who?)
-- [x] Tiles (medium)
-=======
 - [ ] Strands (medium) <- partially complete
 - [ ] Connections (medium)
 - [ ] Letter Boxed (who?)
 - [x] Tiles (easy)
->>>>>>> 52694e36f6423b6a70ce2e556c8e2587daefc97e
 - [x] Sudoku (easy)
 
 ## Spelling Bee
@@ -28,7 +21,6 @@ It narrows down the possible words given the colours we've been shown, then pick
 
 ## Pips
 
-<<<<<<< HEAD
 This one is very hard. Our solution is incredibly slow so only really works on easy puzzles, and doesn't link with the front-end, but it makes use of a tree search with pruning, similar to a chess bot. I promise it's beautiful on the inside, I wrote it in Rust because it demanded a language of grace and elegance. Oddly, the hardest part of the problem was automatically dragging the dominos to their place on the board.
 
 ## Strands
@@ -46,13 +38,6 @@ We never touched this game before the hackathon and still haven't touched it, it
 ## Tiles
 
 Tiles looks relatively neat when you press the button. The solution was very complex, it has a whopping TWO for-loops.
-=======
-This one is very hard. Our solution is incredibly slow so only really works on easy puzzles, but it makes use of a tree search with pruning, similar to a chess bot. We wrote it in Rust because it demanded a language of grace and elegance. Oddly, the hardest part of the problem was automatically dragging the dominos to their place on the board. Also the code is very ugly.
-
-## Strands
-
-We're kinda cheating by just getting the player all the hints they could ever need and leaving it at that but we want to integrate the use of a language model in the future.
->>>>>>> 52694e36f6423b6a70ce2e556c8e2587daefc97e
 
 ## Sudoku
 
