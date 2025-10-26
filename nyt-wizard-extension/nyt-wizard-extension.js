@@ -39,8 +39,14 @@
         else if (currURL.includes("sudoku"))
         {
             data = S_getData();
-            const temp_output = [["5","6","3","3","5","7","2","8","4"],["8","5","6","1","2","3","7","6","5"],["7","2","6","4","5","6","2","3","3"],["6","3","4","5","6","7","8","9","8"],["7","6","5","5","2","2","6","1","2"],["2","8","4","9","1","2","3","1","3"],["9","8","8","7","4","5","4","3","3"],["1","9","2","8","7","6","9","3","4"],["1","9","2","3","1","2","3","4","3"]];
-            S_inputData(data, temp_output);
+            //console.log(JSON.stringify(data));
+            const solved = await fetch(apiURL + "sudoku/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({data})
+            });
+            //const temp_output = [["5","6","3","3","5","7","2","8","4"],["8","5","6","1","2","3","7","6","5"],["7","2","6","4","5","6","2","3","3"],["6","3","4","5","6","7","8","9","8"],["7","6","5","5","2","2","6","1","2"],["2","8","4","9","1","2","3","1","3"],["9","8","8","7","4","5","4","3","3"],["1","9","2","8","7","6","9","3","4"],["1","9","2","3","1","2","3","4","3"]];
+            S_inputData(data, (await solved.text()));
         }
 
         console.log(data);
@@ -240,10 +246,14 @@
 
     async function S_inputData(inputGrid, outputGrid)
     {
+        //outputGrid = Array.from(outputGrid);
+        outputGrid = eval(outputGrid);
         for (let row in outputGrid)
         {
+            //console.log("row - " + row);
             for (let column in outputGrid[row])
             {
+                //console.log("col - " + column);
                 if (inputGrid[row][column] === "")
                 {
                     injectFunction(clickSudokuCell, parseInt(row*9)+parseInt(column));
@@ -293,12 +303,13 @@
 
     function clickSudokuNumber(number)
     {
+        //console.log(number);
         const el = document.getElementsByClassName("su-keyboard__svg");
 
         let correctButton;
         for (let e of el)
         {
-            if (e.getAttribute("data-candidate") === number){
+            if (e.getAttribute("data-candidate") == number){
                 correctButton = e.parentNode.parentNode;
                 break;
             }
