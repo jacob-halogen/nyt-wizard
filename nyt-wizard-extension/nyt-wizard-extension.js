@@ -120,7 +120,7 @@
                 await sleep(10);
             }
             injectFunction(clickBeeSubmit);
-            await sleep(750);
+            await sleep(1000);
         }
     }
 
