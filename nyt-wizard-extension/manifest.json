@@ -13,10 +13,7 @@
                 "*://www.nytimes.com/games/*"
             ],
             "js": [
-                "nyt-wizard-extension.js",
-                "wordle-handler.js",
-                "spelling-bee-handler.js",
-                "pips-handler.js"
+                "nyt-wizard-extension.js"
             ]
         }
     ]

@@ -44,7 +44,7 @@
         data.push(currentWord);
 
         const jsonData = JSON.stringify(data);
-        W_inputData("tests");
+        //W_inputData("tests");
         return jsonData;
     }
 
@@ -163,14 +163,14 @@
         delete data.hard.constructors
         delete data.hard.solution
 
-        P_inputData(null);
+        P_displayData(null);
 
         return data;
     }
 
-    function P_inputData(layout)
+    function P_displayData(layout)
     {
-        injectFunction(clickDomino, 2);
+        
     }
 
     function injectFunction(fn, ...args) {
@@ -178,22 +178,6 @@
         script.textContent = `(${fn})(${args.map(a => JSON.stringify(a)).join(',')});`;
         (document.head || document.documentElement).appendChild(script);
         script.remove();
-    }
-
-    function clickDomino(id) {
-        const domino = document.getElementById("domino-" + id + "-first");
-        if (!domino) return;
-        console.log(domino);
-
-        const rect = domino.getBoundingClientRect();
-        const x = rect.left + rect.width / 2;
-        const y = rect.top + rect.height / 2;
-
-        const options = { bubbles: true, cancelable: true, clientX: x, clientY: y };
-
-        domino.dispatchEvent(new MouseEvent('mousedown', options));
-        domino.dispatchEvent(new MouseEvent('mouseup', options));
-        domino.dispatchEvent(new MouseEvent('click', options));
     }
 
     function clickHex(letter) {
