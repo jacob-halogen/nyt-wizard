@@ -36,6 +36,10 @@
         {
             data = await P_getData();
         }
+        else if (currURL.includes(""))
+        {
+            data = await P_getData();
+        }
         else if (currURL.includes("sudoku"))
         {
             data = S_getData();
