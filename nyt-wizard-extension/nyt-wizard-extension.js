@@ -48,6 +48,16 @@
             //const temp_output = [["5","6","3","3","5","7","2","8","4"],["8","5","6","1","2","3","7","6","5"],["7","2","6","4","5","6","2","3","3"],["6","3","4","5","6","7","8","9","8"],["7","6","5","5","2","2","6","1","2"],["2","8","4","9","1","2","3","1","3"],["9","8","8","7","4","5","4","3","3"],["1","9","2","8","7","6","9","3","4"],["1","9","2","3","1","2","3","4","3"]];
             S_inputData(data, (await solved.text()));
         }
+        else if (currURL.includes("strands"))
+        {
+            data = ST_getData();
+            const solved = await fetch(apiURL + "strands/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({data})
+            });
+            ST_inputData(await solved.text());
+        }
 
         console.log(data);
     }
@@ -264,6 +274,57 @@
         }
     }
 
+    function ST_getData()
+    {
+        const data = [];
+        const letterButtons = document.getElementsByClassName("styles-module_strandsBtn__xobCT styles-module_item__ZXXc7");
+        let letterNo = 0;
+        let currentRow = [];
+
+        for (let bar of letterButtons)
+        {
+            if (letterNo === 6)
+            {
+                letterNo = 0;
+                data.push(currentRow);
+                currentRow = [];
+            }
+            
+            letterNo++;
+            currentRow.push({ 
+                "id": bar.id.split("-")[1],
+                "letter": bar.textContent.toLowerCase()
+            });
+        }
+
+        data.push(currentRow);
+
+        return data;
+    }
+
+    async function ST_inputData(words)
+    {
+        words = words.replaceAll("(", "[");
+        words = words.replaceAll(")", "]");
+        words = eval(words);
+        //const letterButtons = document.getElementsByClassName("styles-module_strandsBtn__xobCT styles-module_item__ZXXc7");
+        //const buttons = Object.assign({}, ...Array.from(letterButtons).map((b) => ({[b.id.split("-")[1]]: b})));
+        
+        console.log(words);
+        for (let word of words)
+        {
+            let lastLetter;
+            for (let letter_id of word[1])
+            {
+                injectFunction(clickStrandsLetter, letter_id);
+                await sleep(50);
+                lastLetter = letter_id;
+            }
+            injectFunction(clickStrandsLetter, lastLetter);
+            await sleep(250);
+        }
+    }
+
     function sleep(ms) 
     {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -274,6 +335,23 @@
         script.textContent = `(${fn})(${args.map(a => JSON.stringify(a)).join(',')});`;
         (document.head || document.documentElement).appendChild(script);
         script.remove();
+    }
+
+    function clickStrandsLetter(id)
+    {
+        console.log("button-" + id);
+        const el = document.getElementById("button-" + id);
+        console.log(el);
+        
+        const rect = el.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+
+        const options = { bubbles: true, cancelable: true, clientX: x, clientY: y };
+
+        el.dispatchEvent(new MouseEvent('mousedown', options));
+        el.dispatchEvent(new MouseEvent('mouseup', options));
+        el.dispatchEvent(new MouseEvent('click', options));
     }
 
     function clickSudokuCell(id)

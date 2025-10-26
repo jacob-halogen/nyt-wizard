@@ -62,6 +62,23 @@ app.post('/sudoku', (req, res) => {
     })
 })
 
+app.post('/strands', (req, res) => {
+    const state = JSON.stringify(req.body.data);
+    console.log(state);
+    const python = spawn('python', ['../strands.py', state])
+    let output = ""
+    python.stdout.on('data', (data) => {
+        output = data
+    })
+    python.stderr.on('data', (data) => {
+        console.log("ERR: " + data)
+    })
+    python.on('close', (code) => {
+        console.log("OUT: " + output)
+        res.send(output.toString().trim())
+    })
+})
+
 app.listen(port, () => {
     console.log(`listening on port ${port}`)
 })
