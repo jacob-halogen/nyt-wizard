@@ -36,10 +36,6 @@
         {
             data = await P_getData();
         }
-        else if (currURL.includes("tiles"))
-        {
-            T_inputData();
-        }
         else if (currURL.includes("sudoku"))
         {
             data = S_getData();
@@ -496,4 +492,3 @@
     activator.appendChild(button);
     document.body.appendChild(activator);
 })();
-
