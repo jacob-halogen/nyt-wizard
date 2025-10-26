@@ -14,7 +14,6 @@
         if (currURL.includes("wordle")) 
         {
             data = W_getData();
-            console.log(JSON.stringify({data}));
             const solved = await fetch("http://localhost:3000/wordle/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -25,6 +24,12 @@
         else if (currURL.includes("spelling-bee")) 
         {
             data = SB_getData();
+            const solved = await fetch("http://localhost:3000/spelling-bee/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({data})
+            });
+            SB_inputData((await solved.text()).replaceAll(" ", ""));
         }
         else if (currURL.includes("pips")) 
         {
@@ -98,20 +103,24 @@
 
         const data = {"letters": letters, "center": centerLetter};
         const jsonData = JSON.stringify(data);
-        
-        SB_inputData(["flat"]);
+
         return jsonData;
     }
 
-    function SB_inputData(words)
+    async function SB_inputData(words)
     {
+        words.replaceAll("[", "");
+        words.replaceAll("'", "");
+        words = words.split(",");
         for (let word of words)
         {
             for (let letter of word)
             {
                 injectFunction(clickHex, letter);
+                await sleep(10);
             }
             injectFunction(clickBeeSubmit);
+            await sleep(750);
         }
     }
 
