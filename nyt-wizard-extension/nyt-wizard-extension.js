@@ -12,10 +12,10 @@
         const currURLText = document.URL;
         const currURLObj = new URL(currURLText);
         const currURL = currURLObj.origin + currURLObj.pathname;
-        if (currURL.includes(apiURL + "wordle/")) 
+        if (currURL.includes("wordle/")) 
         {
             data = W_getData();
-            const solved = await fetch("wordle/", {
+            const solved = await fetch(apiURL + "wordle/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({data})
@@ -88,7 +88,7 @@
 
         for(letter of guess)
         {
-            console.log(letter);
+            //console.log(letter);
             keys[letter].click();
         }
 
