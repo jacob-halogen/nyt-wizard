@@ -5,10 +5,10 @@ The NYT Wizard shall solve any of the New York Times games (except the ones that
 - [x] Spelling Bee (easy)
 - [x] Wordle (medium)
 - [x] Pips (hard)
-- [ ] Strands (medium)
+- [ ] Strands (medium) <- partially complete
 - [ ] Connections (medium)
 - [ ] Letter Boxed (who?)
-- [ ] Tiles (medium)
+- [x] Tiles (easy)
 - [x] Sudoku (easy)
 
 ## Spelling Bee
@@ -21,11 +21,11 @@ It narrows down the possible words given the colours we've been shown, then pick
 
 ## Pips
 
-This one is very hard. Our solution is incredibly slow so only really works on easy puzzles, but it makes use of a tree search with pruning, similar to a chess bot. We wrote it in Rust because it demanded a language of grace and elegance. Oddly, the hardest part of the problem was automatically dragging the dominos to their place on the board.
+This one is very hard. Our solution is incredibly slow so only really works on easy puzzles, but it makes use of a tree search with pruning, similar to a chess bot. We wrote it in Rust because it demanded a language of grace and elegance. Oddly, the hardest part of the problem was automatically dragging the dominos to their place on the board. Also the code is very ugly.
 
 ## Strands
 
-We're kinda cheating by using hints.
+We're kinda cheating by just getting the player all the hints they could ever need and leaving it at that but we want to integrate the use of a language model in the future.
 
 ## Sudoku
 
