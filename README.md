@@ -1,6 +1,6 @@
 # NYT Wizard
 
-The NYT Wizard shall solve any of the New York Times games (except the ones that it can't).
+The NYT Wizard shall solve any of the New York Times games (except the ones that it can't). Gaze upon Harvey's glorious naming conventions in `nyt-wizard-extension.js`.
 
 - [x] Spelling Bee (easy)
 - [x] Wordle (medium)

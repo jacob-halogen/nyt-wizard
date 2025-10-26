@@ -36,9 +36,9 @@
         {
             data = await P_getData();
         }
-        else if (currURL.includes(""))
+        else if (currURL.includes("tiles"))
         {
-            data = await P_getData();
+            T_inputData();
         }
         else if (currURL.includes("sudoku"))
         {
@@ -54,6 +54,26 @@
         }
 
         console.log(data);
+    }
+
+    async function T_inputData()
+    {
+        const tiles = document.getElementsByClassName("tls-tile");
+        for (let tile of tiles.shuffle()) {
+            for (let other_tile of tiles) {
+                T_clickTile(tile);
+                T_clickTile(other_tile);
+                await sleep(10)
+            }
+        }
+    }
+    function T_clickTile(tile)
+    {
+        const rect = tile.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const options = { bubbles: true, cancelable: true, clientX: x, clientY: y };
+        tile.dispatchEvent(new MouseEvent('click', options));
     }
 
     function W_getData()
