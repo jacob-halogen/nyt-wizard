@@ -11,9 +11,25 @@
         const currURLText = document.URL;
         const currURLObj = new URL(currURLText);
         const currURL = currURLObj.origin + currURLObj.pathname;
-        if (currURL.includes("wordle")) data = W_getData();
-        else if (currURL.includes("spelling-bee")) data = SB_getData();
-        else if (currURL.includes("pips")) data = await P_getData();
+        if (currURL.includes("wordle")) 
+        {
+            data = W_getData();
+            console.log(JSON.stringify({data}));
+            const solved = await fetch("http://localhost:3000/wordle-solver/", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({data})
+            });
+            W_inputData((await solved.text()).toString());
+        }
+        else if (currURL.includes("spelling-bee")) 
+        {
+            data = SB_getData();
+        }
+        else if (currURL.includes("pips")) 
+        {
+            data = await P_getData();
+        }
 
         console.log(data);
     }
@@ -55,6 +71,7 @@
 
         for(letter of guess)
         {
+            console.log(letter);
             keys[letter].click();
         }
 

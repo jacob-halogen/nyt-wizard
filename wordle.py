@@ -1,8 +1,9 @@
 import re
 import ast
 import random
+import sys
 
-with open("wordle-guesses.txt", "r") as gf, open("wordle-answers.txt", "r") as af:
+with open("../wordle-guesses.txt", "r") as gf, open("../wordle-answers.txt", "r") as af:
 	guesses = list(map(lambda x: x[0:5], gf.readlines()))
 	answers = list(map(lambda x: x[0:5], af.readlines()))
 
@@ -75,9 +76,8 @@ def calculate_best_word(filtered_words, present):
 
 	return words_remaining[random.randint(0, len(words_remaining) - 1)]
 
-while True:
-	test_input = ast.literal_eval(input("Enter output from js console: "))
-	absent, present, correct = read_input(test_input)
-	filtered_guesses = filter_dictionary(absent, present, correct, guesses)
-	best_word = calculate_best_word(filtered_guesses, present)
-	print("Next best word: " + best_word)
+test_input = ast.literal_eval(sys.argv[1])
+absent, present, correct = read_input(test_input)
+filtered_guesses = filter_dictionary(absent, present, correct, guesses)
+best_word = calculate_best_word(filtered_guesses, present)
+print(best_word)

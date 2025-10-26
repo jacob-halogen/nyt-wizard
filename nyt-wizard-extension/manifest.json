@@ -16,5 +16,8 @@
                 "nyt-wizard-extension.js"
             ]
         }
+    ],
+    "permissions": [
+        "<all_urls>"
     ]
 }
