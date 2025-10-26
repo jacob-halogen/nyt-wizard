@@ -2,7 +2,7 @@
 
 The NYT Wizard shall solve any of the New York Times games (except the ones that it can't).
 
-- [ ] Spelling Bee (easy)
+- [x] Spelling Bee (easy)
 - [x] Wordle (medium)
 - [ ] Pips (hard)
 - [ ] Strands (hard, easy if you cheese it)
