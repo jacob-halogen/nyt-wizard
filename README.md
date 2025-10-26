@@ -1,9 +1,9 @@
 # NYT Wizard
 
-The NYT Wizard ~~can~~ will be able to solve any of the New York Times games (except the ones that need money)
+The NYT Wizard shall solve any of the New York Times games (except the ones that it can't).
 
 - [ ] Spelling Bee (easy)
-- [ ] Wordle (medium)
+- [x] Wordle (medium)
 - [ ] Pips (hard)
 - [ ] Strands (hard, easy if you cheese it)
 - [ ] Connections (medium)
