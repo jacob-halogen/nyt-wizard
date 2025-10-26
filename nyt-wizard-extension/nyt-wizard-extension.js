@@ -7,14 +7,15 @@
 
     async function startSolver()
     {
+        const apiURL = "http://localhost:3000/";
         let data;
         const currURLText = document.URL;
         const currURLObj = new URL(currURLText);
         const currURL = currURLObj.origin + currURLObj.pathname;
-        if (currURL.includes("wordle")) 
+        if (currURL.includes(apiURL + "wordle/")) 
         {
             data = W_getData();
-            const solved = await fetch("http://localhost:3000/wordle/", {
+            const solved = await fetch("wordle/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({data})
@@ -24,7 +25,7 @@
         else if (currURL.includes("spelling-bee")) 
         {
             data = SB_getData();
-            const solved = await fetch("http://localhost:3000/spelling-bee/", {
+            const solved = await fetch(apiURL + "spelling-bee/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({data})
