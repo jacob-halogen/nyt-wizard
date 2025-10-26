@@ -30,6 +30,12 @@
         {
             data = await P_getData();
         }
+        else if (currURL.includes("sudoku"))
+        {
+            data = S_getData();
+            const temp_output = [["5","6","3","3","5","7","2","8","4"],["8","5","6","1","2","3","7","6","5"],["7","2","6","4","5","6","2","3","3"],["6","3","4","5","6","7","8","9","8"],["7","6","5","5","2","2","6","1","2"],["2","8","4","9","1","2","3","1","3"],["9","8","8","7","4","5","4","3","3"],["1","9","2","8","7","6","9","3","4"],["1","9","2","3","1","2","3","4","3"]];
+            S_inputData(data, temp_output);
+        }
 
         console.log(data);
     }
@@ -59,9 +65,8 @@
 
         data.push(currentWord);
 
-        const jsonData = JSON.stringify(data);
         //W_inputData("tests");
-        return jsonData;
+        return JSON.stringify(data);
     }
 
     function W_inputData(guess)
@@ -190,11 +195,115 @@
         
     }
 
+    function S_getData()
+    {
+        const data = [];
+        const cells = document.getElementsByClassName("su-cell");
+        let cellNo = 0;
+        let currentRow = [];
+        
+        for (let cell of cells)
+        {
+            if (cellNo === 9)
+            {
+                cellNo = 0;
+                data.push(currentRow);
+                currentRow = [];
+            }
+
+            cellNo++;
+            const number = cell.getElementsByClassName("su-cell__value");
+            if (number && number.length > 0)
+            {
+                currentRow.push(number[0].getAttribute("data-number"));
+            }
+            else
+            {
+                currentRow.push("");
+            }
+        }
+
+        data.push(currentRow);
+
+        return data;
+    }
+
+    async function S_inputData(inputGrid, outputGrid)
+    {
+        for (let row in outputGrid)
+        {
+            for (let column in outputGrid[row])
+            {
+                if (inputGrid[row][column] === "")
+                {
+                    injectFunction(clickSudokuCell, parseInt(row*9)+parseInt(column));
+                    injectFunction(clickSudokuNumber, outputGrid[row][column]);
+                    await sleep(1);
+                }
+            }
+        }
+    }
+
+    function sleep(ms) 
+    {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     function injectFunction(fn, ...args) {
         const script = document.createElement('script');
         script.textContent = `(${fn})(${args.map(a => JSON.stringify(a)).join(',')});`;
         (document.head || document.documentElement).appendChild(script);
         script.remove();
+    }
+
+    function clickSudokuCell(id)
+    {
+        const el = document.getElementsByClassName("su-cell");
+
+        let correctCell;
+        for (let e of el)
+        {
+            if (e.getAttribute("data-cell") == id){
+                correctCell = e;
+                break;
+            }
+        }
+        //console.log(correctButton);
+        
+        const rect = correctCell.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+
+        const options = { bubbles: true, cancelable: true, clientX: x, clientY: y };
+
+        correctCell.dispatchEvent(new MouseEvent('mousedown', options));
+        correctCell.dispatchEvent(new MouseEvent('mouseup', options));
+        correctCell.dispatchEvent(new MouseEvent('click', options));
+    }
+
+    function clickSudokuNumber(number)
+    {
+        const el = document.getElementsByClassName("su-keyboard__svg");
+
+        let correctButton;
+        for (let e of el)
+        {
+            if (e.getAttribute("data-candidate") === number){
+                correctButton = e.parentNode.parentNode;
+                break;
+            }
+        }
+        //console.log(correctButton);
+        
+        const rect = correctButton.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+
+        const options = { bubbles: true, cancelable: true, clientX: x, clientY: y };
+
+        correctButton.dispatchEvent(new MouseEvent('mousedown', options));
+        correctButton.dispatchEvent(new MouseEvent('mouseup', options));
+        correctButton.dispatchEvent(new MouseEvent('click', options));
     }
 
     function clickHex(letter) {
